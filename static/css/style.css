@@ -1,0 +1,156 @@
+body {
+    font-family: Arial, sans-serif;
+    background-color: #f0f0f0;
+    margin: 0;
+    padding: 0;
+    display: flex;
+    flex-direction: column;
+    height: 100vh;
+}
+
+header {
+    background-color: #ffffff;
+    color: rgb(0, 0, 0);
+    padding: 0;
+    text-align: center;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 5vh;
+    border-bottom: 1px solid rgb(218, 218, 218);
+}
+
+.header-component {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    margin: 0;
+    height: 100%;
+    color: white;
+}
+
+.header-component a {
+    color: rgb(0, 0, 0);
+    text-decoration: none;
+    font-size: 1.5em;
+    font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+    transition: 0.3s ease;
+}
+
+.header-component a:hover {
+    color: rgb(65, 65, 65);
+}
+
+.start-page {
+    align-items: start;
+    padding-left: 20px;
+    width: 30%;
+}
+
+.temp-page {
+    align-items: end;
+    padding-right: 20px;
+    width: 18.5%;
+}
+
+.db-page {
+    align-items: start;
+    padding-left: 20px;
+    width: 51.5% ;
+}
+
+.container {
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+    height: 100%;
+}
+
+.row {
+    display: flex;
+    width: 100%;
+    height: 100%;
+}
+
+.tiles {
+    width: 100%;
+    height: 100%;
+    display: flex;
+    box-sizing: border-box;
+    padding : 5px;
+}
+
+.tile-1 {
+    /* background: #927171; */
+    align-items: end;
+    justify-content: end;
+    width: 150%;
+}
+
+.tile-2 {
+    /* background: #8d6262; */
+    align-items: end;
+    justify-content: center;
+    width: 20%;
+}
+
+.tile-3 {
+    /* background: #8f5a5a; */
+    align-items: end;
+    width: 150%;
+}
+
+.tile-4 {
+    /* background: #913d3d; */
+    justify-content: end;
+    width: 150%;
+}
+
+.tile-5 {
+    /* background: #8d1212; */
+    justify-content: center;
+    width: 20%;
+}
+
+.tile-6 {
+    /* background: #880505; */
+    width: 150%;
+}
+
+.test-tile:hover {
+    background-color: #e7e7e7;
+    cursor: pointer;
+}
+
+.test-tile {
+    width: 250px;
+    height: 250px;
+    /* backdrop-filter: blur(10px) brightness(0.95); */
+    background: #ececec;
+    border: 1px solid rgb(218, 218, 218);
+    border-radius: 7px;
+    font-family: Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 3em;
+    transition: background-color 1s ease;
+}
+
+.test-tile a {
+    text-decoration: none;
+    color: inherit;
+}
+
+footer {
+    width: 100%;
+    height: 3vh;
+    background: rgb(255, 255, 255);
+    font-size: 15px;
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    overflow: hidden;
+    letter-spacing: 10px;
+    border-top: 1px solid rgb(218, 218, 218);;
+}
