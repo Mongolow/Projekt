@@ -68,5 +68,34 @@ def add_measure_command():
     print("Dodano pomiar")
 
 
+# API .............................................................................................
+
+#@app.route('/api/weather', methods=['POST']) # to jest dodawanie danych
+#def post_wheather():
+#data = request.json #BEDZIE PRZYJMOWAĆ NOWE DATA W JSON
+
+#if not data or 'temp' not in data or 'hum' not in data:
+#return jsonify({"error": "Brak danych"}), 400
+#new_entry = {
+#"id": #DO ZROBIENIA
+#"temp": data['temp'],
+#"hum": data['hum'],
+#"press": data['press'],
+#"timestamp": #DO ZROBIENIA 
+#}
+
+#return jsonify({"message": "dane zapisane", "id": new_entry['id']}), 201
+
+#@app.route('/api/weather/latest', methods=['GET']) # to jest pobieranie najnowszych danych
+#def get_latest():
+
+#@app.route('/api/weather/<int:id>', methods=['GET']) # to jest pobieranie danych o konkretnym ID
+#def get_weather_id(id):
+
+#@app.route('/api/weather/all', methods=['GET']) # to jest pobieranie wszystkich danych
+#def get_all_weather():
+
+
+
 
 if __name__ == '__main__':    app.run(host='0.0.0.0', port=5001, debug=True) # uruchamia serwer Flask na porcie 5001, dostępny dla wszystkich interfejsów sieciowych.
