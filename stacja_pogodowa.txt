@@ -1,0 +1,70 @@
+#include <WiFi.h>
+#include <HTTPClient.h>
+#include <ArduinoJson.h> 
+const char* ssid = "Mongol";
+const char* password = "Zvside19";
+
+// TUTAJ ENDPOINT
+const char* serverName = "http://192.168.1.138:5001/api/weather";
+
+void sendData(float t, float h, float p) {
+  if(WiFi.status() == WL_CONNECTED) {
+    HTTPClient http;
+    http.begin(serverName);
+    http.addHeader("Content-Type", "application/json");
+
+    // Tworzenie JSON-a
+    StaticJsonDocument<200> doc;
+    doc["temp"] = t;
+    doc["hum"] = h;
+    doc["press"] = p;
+
+    String jsonResponse;
+    serializeJson(doc, jsonResponse);
+
+    // Wysłanie POST
+    int httpResponseCode = http.POST(jsonResponse);
+    
+    if (httpResponseCode > 0) {
+      Serial.print("Sukces, kod odpowiedzi: ");
+      Serial.println(httpResponseCode);
+    } else {
+      Serial.print("Błąd wysyłania: ");
+      Serial.println(httpResponseCode);
+    }
+    http.end();
+  }
+}
+
+
+void setup() {
+  // put your setup code here, to run once:
+  Serial.begin(115200);
+
+  // Łączenie z WiFi
+  WiFi.begin(ssid, password);
+  Serial.print("Łączenie z WiFi");
+  
+  while (WiFi.status() != WL_CONNECTED) {
+    delay(500);
+    Serial.print(".");
+  }
+  
+  Serial.println("");
+  Serial.println("Połączono z WiFi!");
+  Serial.print("Adres IP ESP32: ");
+  Serial.println(WiFi.localIP());
+}
+
+void loop() {
+  // put your main code here, to run repeatedly:
+  float temperatura = 24.5;
+  float wilgotnosc = 55.0;
+  float cisnienie = 1013.2;
+
+  Serial.println("Wysyłam dane...");
+  sendData(temperatura, wilgotnosc, cisnienie);
+
+  // Czekaj 10 sekund przed kolejnym wysłaniem
+  delay(10000);
+}
