@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+    <title>{% block title %}Smarthome{% endblock %}</title>
+</head>
+<body>
+    <header>
+        <div class="start-page header-component">
+            <a href="{{ url_for('index') }}">@</a>
+        </div>
+
+        <div class="temp-page header-component">
+            <a href="{{ url_for('weather') }}">Temps</a>
+        </div>
+
+        <div class="db-page header-component">
+            <a href="#">Database</a>
+        </div>
+    </header>
+
+    {% block content %}
+    <div class="container">
+        <div class="row">
+            <div class="tile-1 tiles"><div class="test-tile temp-tile"><a href="{{ url_for('weather') }}">Weather</a></div></div>
+            <div class="tile-2 tiles"><div class="test-tile">Test</div></div>
+            <div class="tile-3 tiles"><div class="test-tile">Test</div></div>
+        </div>
+
+        <div class="row">
+            <div class="tile-4 tiles"><div class="test-tile">Test</div></div>        
+            <div class="tile-5 tiles"><div class="test-tile">Test</div></div>
+            <div class="tile-6 tiles"><div class="test-tile">Test</div></div>
+        </div>
+    </div>
+    {% endblock %}
+
+    <footer>
+        <p>franek dyga</p>
+        <p>kacper bara</p>
+        <p>michal gniadek</p>
+    </footer>
+</body>
+</html>

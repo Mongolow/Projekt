@@ -67,6 +67,14 @@ def add_measure_command():
     db.commit()
     print("Dodano pomiar")
 
+@app.route('/')
+def index():
+    return render_template('index.html')
 
+@app.route('/weather')
+def weather():
+    db = get_db()
+    measurements = db.execute("SELECT * FROM measurements").fetchall()
+    return render_template('weather.html', measurements=measurements)
 
 if __name__ == '__main__':    app.run(host='0.0.0.0', port=5001, debug=True) # uruchamia serwer Flask na porcie 5001, dostępny dla wszystkich interfejsów sieciowych.
