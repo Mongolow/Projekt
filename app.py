@@ -67,6 +67,44 @@ def add_measure_command():
     db.commit()
     print("Dodano pomiar")
 
+
+# API .............................................................................................
+
+@app.route('/api/weather/post', methods=['POST']) # to jest dodawanie danych
+def api_post_wheather():
+    data = request.json #BEDZIE PRZYJMOWAĆ NOWE DATA W JSON
+
+    if not data or 'temp' not in data or 'hum' not in data:
+        return jsonify({"error": "Brak danych"}), 400
+    new_entry = {
+    "temp": data['temp'],
+    "hum": data['hum'],
+    "press": data['press'],
+    }
+
+    db = get_db()
+    db.execute("INSERT INTO measurements(temp, hum, press) VALUES (?, ?, ?)", [new_entry['temp'], new_entry['hum'], new_entry['press']])
+    db.commit()
+
+    # Zapisz dane do bazy danych
+    return jsonify({"message": "dane zapisane"}), 201
+
+@app.route("/api/weather/get", methods=["GET"])
+def api_measure_list():
+    db = get_db()
+    rows = db.execute("SELECT id, temp, hum, press, created_at FROM measurements ORDER BY created_at DESC").fetchall()
+    return jsonify([dict(row) for row in rows])
+
+@app.route("/api/weather/get/<int:measure_id>", methods=["GET"])
+def api_measure_get(measure_id):
+    db = get_db()
+    row = db.execute("SELECT id, temp, hum, created_at FROM measurements WHERE id = ?", [measure_id]).fetchone()
+    if row is None:
+        abort(404, description="measure not found")
+    return jsonify(dict(row))
+
+# Strony HTML .............................................................................................
+
 @app.route('/')
 def index():
     return render_template('index.html')
