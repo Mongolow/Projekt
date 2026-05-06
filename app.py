@@ -70,31 +70,38 @@ def add_measure_command():
 
 # API .............................................................................................
 
-#@app.route('/api/weather', methods=['POST']) # to jest dodawanie danych
-#def post_wheather():
-#data = request.json #BEDZIE PRZYJMOWAĆ NOWE DATA W JSON
+@app.route('/api/weather/post', methods=['POST']) # to jest dodawanie danych
+def api_post_wheather():
+    data = request.json #BEDZIE PRZYJMOWAĆ NOWE DATA W JSON
 
-#if not data or 'temp' not in data or 'hum' not in data:
-#return jsonify({"error": "Brak danych"}), 400
-#new_entry = {
-#"id": #DO ZROBIENIA
-#"temp": data['temp'],
-#"hum": data['hum'],
-#"press": data['press'],
-#"timestamp": #DO ZROBIENIA 
-#}
+    if not data or 'temp' not in data or 'hum' not in data:
+        return jsonify({"error": "Brak danych"}), 400
+    new_entry = {
+    "temp": data['temp'],
+    "hum": data['hum'],
+    "press": data['press'],
+    }
 
-#return jsonify({"message": "dane zapisane", "id": new_entry['id']}), 201
+    db = get_db()
+    db.execute("INSERT INTO measurements(temp, hum, press) VALUES (?, ?, ?)", [new_entry['temp'], new_entry['hum'], new_entry['press']])
+    db.commit()
 
-#@app.route('/api/weather/latest', methods=['GET']) # to jest pobieranie najnowszych danych
-#def get_latest():
+    # Zapisz dane do bazy danych
+    return jsonify({"message": "dane zapisane"}), 201
 
-#@app.route('/api/weather/<int:id>', methods=['GET']) # to jest pobieranie danych o konkretnym ID
-#def get_weather_id(id):
+@app.route("/api/weather/get", methods=["GET"])
+def api_measure_list():
+    db = get_db()
+    rows = db.execute("SELECT id, temp, hum, press, created_at FROM measurements ORDER BY created_at DESC").fetchall()
+    return jsonify([dict(row) for row in rows])
 
-#@app.route('/api/weather/all', methods=['GET']) # to jest pobieranie wszystkich danych
-#def get_all_weather():
-
+@app.route("/api/weather/get/<int:measure_id>", methods=["GET"])
+def api_measure_get(measure_id):
+    db = get_db()
+    row = db.execute("SELECT id, temp, hum, created_at FROM measurements WHERE id = ?", [measure_id]).fetchone()
+    if row is None:
+        abort(404, description="measure not found")
+    return jsonify(dict(row))
 
 
 
