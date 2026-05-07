@@ -1,8 +1,30 @@
+# Python
 venv/
 env/
 ENV/
+.venv/
 pycache/
+__pycache__/
 *.pyc
 *.pyo
 *.pyd
-.envf
+*.egg-info/
+dist/
+build/
+
+# Environment variables
+.env
+.env.local
+
+# IDE
+.vscode/
+.idea/
+*.swp
+*.swo
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Flask
+instance/
