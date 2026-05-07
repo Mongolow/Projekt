@@ -1,10 +1,27 @@
 #include <WiFi.h>
 #include <HTTPClient.h>
 #include <ArduinoJson.h> 
-const char* ssid = "Mongol";
+#include <Wire.h>
+#include <SPI.h>
+#include <Adafruit_Sensor.h>
+#include <Adafruit_BME280.h>
+
+#define BME_SCK 13
+#define BME_MISO 12
+#define BME_MOSI 11
+#define BME_CS 10
+#define SEALEVELPRESSURE_HPA (1013.25)
+
+Adafruit_BME280 bme; // I2C
+//Adafruit_BME280 bme(BME_CS); // hardware SPI
+//Adafruit_BME280 bme(BME_CS, BME_MOSI, BME_MISO, BME_SCK); // software SPI
+
+unsigned long delayTime;
+
+const char* ssid = "Mongol"; 
 const char* password = "Zvside19";
 
-// TUTAJ ENDPOINT
+// ENDPOINT
 const char* serverName = "http://192.168.1.138:5001/api/weather";
 
 void sendData(float t, float h, float p) {
@@ -26,10 +43,10 @@ void sendData(float t, float h, float p) {
     int httpResponseCode = http.POST(jsonResponse);
     
     if (httpResponseCode > 0) {
-      Serial.print("Sukces, kod odpowiedzi: ");
+      Serial.print("Success: ");
       Serial.println(httpResponseCode);
     } else {
-      Serial.print("Błąd wysyłania: ");
+      Serial.print("sending error: ");
       Serial.println(httpResponseCode);
     }
     http.end();
@@ -41,7 +58,9 @@ void setup() {
   // put your setup code here, to run once:
   Serial.begin(115200);
 
-  // Łączenie z WiFi
+  Wire.begin();
+
+  // WIFI 
   WiFi.begin(ssid, password);
   Serial.print("Łączenie z WiFi");
   
@@ -51,20 +70,23 @@ void setup() {
   }
   
   Serial.println("");
-  Serial.println("Połączono z WiFi!");
-  Serial.print("Adres IP ESP32: ");
+  Serial.println("Connected WiFi!");
+  Serial.print("IP ESP32: ");
   Serial.println(WiFi.localIP());
+
+  // 0x77 or 0x76 
+  unsigned status;
+  status = bme.begin(0x76);  
 }
 
 void loop() {
   // put your main code here, to run repeatedly:
-  float temperatura = 24.5;
-  float wilgotnosc = 55.0;
-  float cisnienie = 1013.2;
+  float temp = bme.readTemperature();
+  float hum = bme.readHumidity();
+  float press = bme.readPressure() / 100.0F;
 
-  Serial.println("Wysyłam dane...");
-  sendData(temperatura, wilgotnosc, cisnienie);
+  Serial.println("Sending Data...");
+  sendData(temp, hum, press);
 
-  // Czekaj 10 sekund przed kolejnym wysłaniem
   delay(10000);
 }
