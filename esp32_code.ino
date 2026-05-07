@@ -22,7 +22,7 @@ const char* ssid = "Mongol";
 const char* password = "Zvside19";
 
 // ENDPOINT
-const char* serverName = "http://192.168.1.138:5001/api/weather";
+const char* serverName = "http://192.168.1.67:5001/api/weather/post";
 
 void sendData(float t, float h, float p) {
   if(WiFi.status() == WL_CONNECTED) {
