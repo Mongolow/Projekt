@@ -67,6 +67,14 @@ def add_measure_command():
     db.commit()
     print("Dodano pomiar")
 
+# Usuwanie pomiaru z bazy danych
+@app.route("/delete_measurement/<int:measure_id>", methods=["POST"])
+def delete_measurement(measure_id):
+    db = get_db()
+    db.execute("DELETE FROM measurements WHERE id = ?", [measure_id])
+    db.commit()
+    return redirect(url_for("database"))
+
 
 # API .............................................................................................
 
@@ -114,5 +122,11 @@ def weather():
     db = get_db()
     measurements = db.execute("SELECT * FROM measurements").fetchall()
     return render_template('weather.html', measurements=measurements)
+
+@app.route('/database')
+def database():
+    db = get_db()
+    measurements = db.execute("SELECT * FROM measurements").fetchall()
+    return render_template('database.html', measurements=measurements)
 
 if __name__ == '__main__':    app.run(host='0.0.0.0', port=5001, debug=True) # uruchamia serwer Flask na porcie 5001, dostępny dla wszystkich interfejsów sieciowych.
