@@ -17,7 +17,7 @@
         </div>
 
         <div class="db-page header-component">
-            <a href="#">Database</a>
+            <a href="{{ url_for('database') }}">Database</a>
         </div>
     </header>
 
@@ -25,7 +25,7 @@
     <div class="container">
         <div class="row">
             <div class="tile-1 tiles"><div class="test-tile temp-tile"><a href="{{ url_for('weather') }}">Weather</a></div></div>
-            <div class="tile-2 tiles"><div class="test-tile">Test</div></div>
+            <div class="tile-2 tiles"><div class="test-tile"><a href="{{ url_for('database') }}">Database</a></div></div>
             <div class="tile-3 tiles"><div class="test-tile">Test</div></div>
         </div>
 

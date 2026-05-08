@@ -6,6 +6,8 @@ body {
     display: flex;
     flex-direction: column;
     height: 100vh;
+    min-height: 100vh;
+    overflow-y: scroll;
 }
 
 header {
@@ -17,6 +19,8 @@ header {
     justify-content: center;
     align-items: center;
     height: 5vh;
+    min-height: 5vh;
+    box-sizing: border-box;
     border-bottom: 1px solid rgb(218, 218, 218);
 }
 
@@ -81,39 +85,33 @@ header {
 }
 
 .tile-1 {
-    /* background: #927171; */
     align-items: end;
     justify-content: end;
     width: 150%;
 }
 
 .tile-2 {
-    /* background: #8d6262; */
     align-items: end;
     justify-content: center;
     width: 20%;
 }
 
 .tile-3 {
-    /* background: #8f5a5a; */
     align-items: end;
     width: 150%;
 }
 
 .tile-4 {
-    /* background: #913d3d; */
     justify-content: end;
     width: 150%;
 }
 
 .tile-5 {
-    /* background: #8d1212; */
     justify-content: center;
     width: 20%;
 }
 
 .tile-6 {
-    /* background: #880505; */
     width: 150%;
 }
 
@@ -125,7 +123,6 @@ header {
 .test-tile {
     width: 250px;
     height: 250px;
-    /* backdrop-filter: blur(10px) brightness(0.95); */
     background: #ececec;
     border: 1px solid rgb(218, 218, 218);
     border-radius: 7px;
@@ -150,7 +147,77 @@ footer {
     display: flex;
     justify-content: space-around;
     align-items: center;
-    overflow: hidden;
+    margin-top: 20px;
     letter-spacing: 10px;
     border-top: 1px solid rgb(218, 218, 218);;
+}
+
+.database-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: fit-content;
+}
+
+.database-table {
+    table-layout: auto;
+    border-spacing: 0;
+    background: #ececec;
+    border: 1px solid rgb(218, 218, 218);
+    border-radius: 7px;
+}
+
+.database-table tr:nth-child(even) {
+    border: 1px solid rgb(218, 218, 218);
+    background: #e2e2e2;
+}
+
+.database-table tr:hover {
+    background-color: #cccccc;
+}
+
+.table-header {
+    font-weight: bold;
+    text-align: center;
+    height: 35px;
+    font-size: 1.1em;
+}
+
+.database-cell {
+    text-align: center;
+    height: 22px;
+    padding: 0;
+}
+
+.table-id {
+    width: 50px;
+}
+
+.table-temp {
+    width: 150px;
+}
+
+.table-hum {
+    width: 120px;
+}
+
+.table-timestamp {
+    width: 250px;
+}
+
+.delete-button {
+    color: rgb(194, 56, 56);
+    border: none;
+    height: 22px;
+    width: 20px;
+    padding: 0;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+    background: none;
+    font-size: 1.2em;
+}
+
+.delete-button:hover {
+    background-color: rgb(212, 100, 100);
+    color: white;
 }

@@ -28,3 +28,6 @@ Thumbs.db
 
 # Flask
 instance/
+
+#Database
+*.db
