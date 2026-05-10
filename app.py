@@ -223,7 +223,7 @@ def chart():
     chart3.render_to_png('static/press_plot.png')
     # RENDER TEMPLATE
 
-    return render_template('temp_plot.html')
+    return render_template('charts.html')
 
 
 

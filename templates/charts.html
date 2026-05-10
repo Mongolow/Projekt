@@ -1,0 +1,10 @@
+{% extends "index.html" %}
+{% block title %}Smarthome - Temperature Plot{% endblock %}
+    {% block content %}
+    <p style="color:rgb(218, 0, 207); margin: 20px ;">Temperature Chart</p>
+    <img src="{{ url_for('static', filename='temp_plot.png') }}" width="900" alt="Temperature Chart">
+    <p style="color:rgb(218, 0, 207); margin: 20px ;">Humidity Chart</p>
+    <img src="{{ url_for('static', filename='hum_plot.png') }}" width="900" alt="Humidity Chart">
+    <p style="color:rgb(218, 0, 207); margin: 20px ;">Pressure Chart</p>
+    <img src="{{ url_for('static', filename='press_plot.png') }}" width="900" alt="Pressure Chart">
+    {% endblock %}
