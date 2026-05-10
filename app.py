@@ -59,9 +59,9 @@ def seed_db_command():
 # Komenda dodająca do bazy danych losowy jeden pomiar
 @app.cli.command("add-measure")
 def add_measure_command():
-    me_1 = round(secrets.SystemRandom().uniform(2.5, 100), 2)
-    me_2 = round(secrets.SystemRandom().uniform(2.5, 100), 2)
-    me_3 = round(secrets.SystemRandom().uniform(2.5, 100), 2)
+    me_1 = round(secrets.SystemRandom().uniform(21, 36), 2)
+    me_2 = round(secrets.SystemRandom().uniform(30, 40), 2)
+    me_3 = round(secrets.SystemRandom().uniform(990, 1000), 2)
     db = get_db()
     db.execute("INSERT INTO measurements(temp, hum, press) VALUES (?, ?, ?)", [me_1, me_2, me_3])
     db.commit()
@@ -102,14 +102,16 @@ def api_measure_get(measure_id):
         abort(404, description="measure not found")
     return jsonify(dict(row))
 
-@app.route("/api/weather/delete/<int:measure_id>", methods=["POST"])
-def delete_measurement(measure_id):
+@app.route("/api/weather/delete/<int:measure_id>", methods=["DELETE", "POST"])
+def api_delete_measurement(measure_id):
     db = get_db()
-    db.execute("DELETE FROM measurements WHERE id = ?", [measure_id])
+    cur = db.execute("DELETE FROM measurements WHERE id = ?", [measure_id])
     db.commit()
-    return redirect(url_for("database"))
+    if cur.rowcount == 0:
+        return jsonify({"error": "measurement not found"}), 404
+    return jsonify({"message": "measurement deleted"}), 200
 
-# Strony HTML .............................................................................................
+# HTML .............................................................................................
 
 @app.route('/')
 def index():
@@ -126,5 +128,13 @@ def database():
     db = get_db()
     measurements = db.execute("SELECT * FROM measurements").fetchall()
     return render_template('database.html', measurements=measurements)
+
+# Usuwanie pomiaru z bazy danych
+@app.route("/delete_measurement/<int:measure_id>", methods=["POST"])
+def delete_measurement(measure_id):
+    db = get_db()
+    db.execute("DELETE FROM measurements WHERE id = ?", [measure_id])
+    db.commit()
+    return redirect(url_for("database"))
 
 if __name__ == '__main__':    app.run(host='0.0.0.0', port=5001, debug=True) # uruchamia serwer Flask na porcie 5001, dostępny dla wszystkich interfejsów sieciowych.
