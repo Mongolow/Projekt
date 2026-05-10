@@ -1,6 +1,7 @@
 from flask import request, jsonify, Flask, render_template, g, redirect, url_for, flash, abort
 import secrets
 import sqlite3
+import pygal 
 
 
 app = Flask(__name__)
@@ -136,5 +137,23 @@ def delete_measurement(measure_id):
     db.execute("DELETE FROM measurements WHERE id = ?", [measure_id])
     db.commit()
     return redirect(url_for("database"))
+
+@app.route("/temp/plot", methods=['POST', 'GET'])
+def temp_plot():
+    chart  = pygal.Bar()
+    chart.title = 'Temperature'
+    db = get_db()
+    rows = db.execute("SELECT temp FROM measurements").fetchall()
+    dates = db.execute("SELECT created_at FROM measurements").fetchall()
+    dates_hours = []
+    for date in dates:
+        date = date[0][11:16]
+        dates_hours.append(date)
+    chart.x_labels = dates_hours
+    temps = [row['temp'] for row in rows]
+    chart.add('Temperature', temps)
+    chart.render_to_png('static/temp_plot.png')
+    return render_template('temp_plot.html', image_url='static/temp_plot.svg')
+
 
 if __name__ == '__main__':    app.run(host='0.0.0.0', port=5001, debug=True) # uruchamia serwer Flask na porcie 5001, dostępny dla wszystkich interfejsów sieciowych.

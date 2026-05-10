@@ -1,0 +1,6 @@
+{% extends "index.html" %}
+{% block title %}Smarthome - Temperature Plot{% endblock %}
+    {% block content %}
+    <p style="color:rgb(218, 0, 207); margin: 20px ;">Temperature Plot</p>
+    <img src="{{ url_for('static', filename='temp_plot.png') }}" alt="Temperature Plot">
+    {% endblock %}
