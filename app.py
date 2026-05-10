@@ -67,15 +67,6 @@ def add_measure_command():
     db.commit()
     print("Dodano pomiar")
 
-# Usuwanie pomiaru z bazy danych
-@app.route("/delete_measurement/<int:measure_id>", methods=["POST"])
-def delete_measurement(measure_id):
-    db = get_db()
-    db.execute("DELETE FROM measurements WHERE id = ?", [measure_id])
-    db.commit()
-    return redirect(url_for("database"))
-
-
 # API .............................................................................................
 
 @app.route('/api/weather/post', methods=['POST']) # to jest dodawanie danych
@@ -110,6 +101,13 @@ def api_measure_get(measure_id):
     if row is None:
         abort(404, description="measure not found")
     return jsonify(dict(row))
+
+@app.route("/api/weather/delete/<int:measure_id>", methods=["POST"])
+def delete_measurement(measure_id):
+    db = get_db()
+    db.execute("DELETE FROM measurements WHERE id = ?", [measure_id])
+    db.commit()
+    return redirect(url_for("database"))
 
 # Strony HTML .............................................................................................
 
