@@ -3,4 +3,8 @@
     {% block content %}
     <p style="color:rgb(218, 0, 207); margin: 20px ;">Temperature Plot</p>
     <img src="{{ url_for('static', filename='temp_plot.png') }}" alt="Temperature Plot">
+    <p style="color:rgb(218, 0, 207); margin: 20px ;">Humidity Plot</p>
+    <img src="{{ url_for('static', filename='hum_plot.png') }}" alt="Humidity Plot">
+    <p style="color:rgb(218, 0, 207); margin: 20px ;">Pressure Plot</p>
+    <img src="{{ url_for('static', filename='press_plot.png') }}" alt="Pressure Plot">
     {% endblock %}

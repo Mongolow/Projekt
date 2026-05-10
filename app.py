@@ -138,9 +138,10 @@ def delete_measurement(measure_id):
     db.commit()
     return redirect(url_for("database"))
 
-@app.route("/temp/plot", methods=['POST', 'GET'])
-def temp_plot():
-    chart  = pygal.Bar()
+@app.route("/charts", methods=['POST', 'GET'])
+def chart():
+    # TEMPERATURE
+    chart  = pygal.Line()
     chart.title = 'Temperature'
     db = get_db()
     rows = db.execute("SELECT temp FROM measurements").fetchall()
@@ -153,7 +154,37 @@ def temp_plot():
     temps = [row['temp'] for row in rows]
     chart.add('Temperature', temps)
     chart.render_to_png('static/temp_plot.png')
-    return render_template('temp_plot.html', image_url='static/temp_plot.svg')
+    # HUM
+    chart2  = pygal.Line()
+    chart2.title = 'Humidity'
+    db = get_db()
+    rows = db.execute("SELECT hum FROM measurements").fetchall()
+    dates = db.execute("SELECT created_at FROM measurements").fetchall()
+    dates_hours = []
+    for date in dates:
+        date = date[0][11:16]
+        dates_hours.append(date)
+    chart2.x_labels = dates_hours
+    hums = [row['hum'] for row in rows]
+    chart2.add('Humidity', hums)
+    chart2.render_to_png('static/hum_plot.png')
+    # PRESSURE
+    chart3  = pygal.Line()
+    chart3.title = 'Pressure'
+    db = get_db()
+    rows = db.execute("SELECT press FROM measurements").fetchall()
+    dates = db.execute("SELECT created_at FROM measurements").fetchall()
+    dates_hours = []
+    for date in dates:
+        date = date[0][11:16]
+        dates_hours.append(date)
+    chart3.x_labels = dates_hours
+    presses = [row['press'] for row in rows]
+    chart3.add('Pressure', presses)
+    chart3.render_to_png('static/press_plot.png')
+    # RENDER TEMPLATE
+    return render_template('temp_plot.html')
+
 
 
 if __name__ == '__main__':    app.run(host='0.0.0.0', port=5001, debug=True) # uruchamia serwer Flask na porcie 5001, dostępny dla wszystkich interfejsów sieciowych.
