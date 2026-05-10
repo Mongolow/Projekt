@@ -31,3 +31,6 @@ instance/
 
 #Database
 *.db
+
+#Charts
+*.png

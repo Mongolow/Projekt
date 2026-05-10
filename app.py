@@ -141,11 +141,24 @@ def delete_measurement(measure_id):
 @app.route("/charts", methods=['POST', 'GET'])
 def chart():
     # TEMPERATURE
-    chart  = pygal.Line()
+
+    chart  = pygal.Line(fill=True)
     chart.title = 'Temperature'
     db = get_db()
     rows = db.execute("SELECT temp FROM measurements").fetchall()
     dates = db.execute("SELECT created_at FROM measurements").fetchall()
+    if len(dates) > 15 and len(dates) <= 50:
+        dates = dates[::3]
+        rows = rows[::3]
+    elif len(dates) > 50 and len(dates) <= 100:
+        dates = dates[::5]
+        rows = rows[::5]
+    elif len(dates) > 100 and len(dates) <= 200:
+        dates = dates[::12]
+        rows = rows[::12]
+    elif len(dates) > 200:
+        dates =dates[-150::12]
+        rows = rows[-150::12]
     dates_hours = []
     for date in dates:
         date = date[0][11:16]
@@ -155,11 +168,24 @@ def chart():
     chart.add('Temperature', temps)
     chart.render_to_png('static/temp_plot.png')
     # HUM
-    chart2  = pygal.Line()
+
+    chart2 = pygal.Line(fill=True)
     chart2.title = 'Humidity'
     db = get_db()
     rows = db.execute("SELECT hum FROM measurements").fetchall()
     dates = db.execute("SELECT created_at FROM measurements").fetchall()
+    if len(dates) > 15 and len(dates) <= 50:
+        dates = dates[::3]
+        rows = rows[::3]
+    elif len(dates) > 50 and len(dates) <= 100:
+        dates = dates[::5]
+        rows = rows[::5]
+    elif len(dates) > 100 and len(dates) <= 200:
+        dates = dates[::12]
+        rows = rows[::12]
+    elif len(dates) > 200:
+        dates =dates[-150::12]
+        rows = rows[-150::12]
     dates_hours = []
     for date in dates:
         date = date[0][11:16]
@@ -169,11 +195,24 @@ def chart():
     chart2.add('Humidity', hums)
     chart2.render_to_png('static/hum_plot.png')
     # PRESSURE
-    chart3  = pygal.Line()
+    
+    chart3  = pygal.Line(fill=True)
     chart3.title = 'Pressure'
     db = get_db()
     rows = db.execute("SELECT press FROM measurements").fetchall()
     dates = db.execute("SELECT created_at FROM measurements").fetchall()
+    if len(dates) > 15 and len(dates) <= 50:
+        dates = dates[::3]
+        rows = rows[::3]
+    elif len(dates) > 50 and len(dates) <= 100:
+        dates = dates[::5]
+        rows = rows[::5]
+    elif len(dates) > 100 and len(dates) <= 200:
+        dates = dates[::12]
+        rows = rows[::12]
+    elif len(dates) > 200:
+        dates =dates[-150::12]
+        rows = rows[-150::12]
     dates_hours = []
     for date in dates:
         date = date[0][11:16]
@@ -183,6 +222,7 @@ def chart():
     chart3.add('Pressure', presses)
     chart3.render_to_png('static/press_plot.png')
     # RENDER TEMPLATE
+
     return render_template('temp_plot.html')
 
 
