@@ -2,6 +2,7 @@ from flask import request, jsonify, Flask, render_template, g, redirect, url_for
 import secrets
 import sqlite3
 import pygal 
+import requests
 
 
 app = Flask(__name__)
@@ -112,6 +113,24 @@ def api_delete_measurement(measure_id):
         return jsonify({"error": "measurement not found"}), 404
     return jsonify({"message": "measurement deleted"}), 200
 
+# Pobieranie temperatury zewnętrznej wykorzystując zewnętrzne API ..................................
+
+def outside_weather():
+    latitude = 50.0614
+    longitude = 19.9366
+    url = f"https://api.open-meteo.com/v1/forecast?latitude={latitude}&longitude={longitude}&current=temperature_2m,relative_humidity_2m,surface_pressure"
+
+    try:
+        resposne = requests.get(url)
+        resposne.raise_for_status()
+        data = resposne.json()
+
+        return data.get("current")
+    except requests.exceptions.RequestException:
+        print("Błąd serwera Open-Meteo.")
+        return None
+
+
 # HTML .............................................................................................
 
 @app.route('/')
@@ -122,7 +141,12 @@ def index():
 def weather():
     db = get_db()
     measurements = db.execute("SELECT * FROM measurements").fetchall()
-    return render_template('weather.html', measurements=measurements)
+    #APi zewnętrzne
+    outside_data= outside_weather()
+    return render_template('weather.html', measurements=measurements, outside=outside_data)
+
+
+
 
 @app.route('/database')
 def database():

@@ -221,3 +221,71 @@ footer {
     background-color: rgb(212, 100, 100);
     color: white;
 }
+
+.table-date {
+    width: 375px;
+    text-align: left;
+
+}
+
+.weather-table {
+    table-layout: auto;
+    border-spacing: 0;
+    background: #ececec;
+    border: 1px solid rgb(218, 218, 218);
+    border-radius: 7px;
+}
+
+.weather-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: fit-content;
+    flex-direction: column;
+    gap: 30px;
+}
+
+.table-parameters-t {
+    width: 140px;
+    text-align: left;
+    padding: 10px 5px;
+}
+.table-parameters-h {
+    width: 140px;
+    text-align: left;
+    padding: 10px 5px;
+
+}
+
+.table-parameters-p {
+    width: 140px;
+    text-align: left;
+    padding: 10px 5px;
+}
+
+.string-house{
+    font-family: Arial, sans-serif;
+    font-weight: bold;
+    font-size: 1.8em;
+    color: #000000;
+    margin-bottom: 10px; 
+    padding-left: 180px;
+    margin-top: 50px;
+
+    
+    /*padding-left: calc(50vw - 187.5px);*/
+
+}
+.table-header-param{
+    background: #dedddd;
+    font-weight: bold;
+    height: 35px;
+    font-size: 1.1em;
+
+}
+
+.table-parameters-values{
+
+    
+    text-align: left;
+}
