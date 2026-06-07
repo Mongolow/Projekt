@@ -1,6 +1,7 @@
 body {
     font-family: Arial, sans-serif;
-    background-color: #f0f0f0;
+    /* background-color: #f0f0f0; */
+    background-color: #f9f9f9;
     margin: 0;
     padding: 0;
     display: flex;
@@ -24,6 +25,16 @@ header {
     border-bottom: 1px solid rgb(218, 218, 218);
 }
 
+.site-wrapper {
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
+}
+
+.site-content {
+    flex: 1;
+}
+
 .header-component {
     display: flex;
     flex-direction: column;
@@ -42,7 +53,7 @@ header {
 }
 
 .header-component a:hover {
-    color: rgb(65, 65, 65);
+    color:rgb(218, 0, 207);
 }
 
 .start-page {
@@ -58,9 +69,9 @@ header {
 }
 
 .db-page {
-    align-items: start;
-    padding-left: 20px;
-    width: 51.5% ;
+    align-items: end;
+    padding-right: 20px;
+    width: 45.5% ;
 }
 
 .container {
@@ -85,33 +96,19 @@ header {
 }
 
 .tile-1 {
-    align-items: end;
+    align-items: center;
     justify-content: end;
     width: 150%;
 }
 
 .tile-2 {
-    align-items: end;
+    align-items: center;
     justify-content: center;
     width: 20%;
 }
 
 .tile-3 {
-    align-items: end;
-    width: 150%;
-}
-
-.tile-4 {
-    justify-content: end;
-    width: 150%;
-}
-
-.tile-5 {
-    justify-content: center;
-    width: 20%;
-}
-
-.tile-6 {
+    align-items: center;
     width: 150%;
 }
 
@@ -127,11 +124,26 @@ header {
     border: 1px solid rgb(218, 218, 218);
     border-radius: 7px;
     font-family: Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;
+    font-size: 3em;
+    transition: background-color 1s ease;
+}
+
+.test-tile a {
+    width: 100%;
+    height: 100%;
     display: flex;
     align-items: center;
     justify-content: center;
-    font-size: 3em;
-    transition: background-color 1s ease;
+}
+
+.db-header {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+.db-header p {
+    color:rgb(218, 0, 207);
+    font-size: 1.2em;
 }
 
 .test-tile a {
@@ -157,6 +169,30 @@ footer {
     justify-content: center;
     align-items: center;
     height: fit-content;
+    flex-direction: column;
+}
+
+.pagination {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin: 0;
+    margin-top: 25px;
+}
+
+.pagination p {
+    color: rgb(218, 0, 207);
+    margin: 0;
+    display: flex;
+    align-items: center;
+}
+
+.pagination-link {
+    padding: 5px;
+    color: rgb(0, 0, 0); 
+    text-decoration: none; 
+    border-radius: 4px; 
+    font-size: 20px;
 }
 
 .database-table {
@@ -223,18 +259,13 @@ footer {
 }
 
 .table-date {
-    
     text-align: left;
-
+    padding-left: 10px;
 }
 
 .table-date-2 {
-    
     text-align: center;
-
 }
-
-
 
 .weather-table {
     width: 700px;
@@ -256,65 +287,81 @@ footer {
 
 .table-parameters-t {
     width: 140px;
-    
     padding: 10px 5px;
 }
 .table-parameters-h {
     width: 140px;
-    
     padding: 10px 5px;
-
 }
 
 .table-parameters-p {
     width: 140px;
-    
     padding: 10px 5px;
 }
 
 .string-house{
-    font-family: Arial, sans-serif;
-    font-weight: bold;
-    font-size: 1.8em;
-    color: #000000;
+    font-size: 1.4em;
+    color:rgb(218, 0, 207);
     margin-bottom: 2px; 
-    
     margin-top: 50px;
-
-    
-    /*padding-left: calc(50vw - 187.5px);*/
-
+    width: 700px;
+    display: flex;
+    justify-content: start;
+    align-items: center;
 }
+
+.string-outside{
+    font-size: 1.4em;
+    color:rgb(218, 0, 207);
+    margin-bottom: 2px; 
+    margin-top: 50px;
+    width: 700px;
+    display: flex;
+    justify-content:space-between;
+    align-items: center;
+}
+
 .table-header-param{
     background: #dedddd;
     font-weight: bold;
     height: 35px;
     font-size: 1.1em;
-
 }
 
 .table-parameters-values{
-
-    
     text-align: left;
 }
 
-.search-city-input {
+.city-form {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding-top: 20px;
+}
 
-    
-    padding: 10px; 
-    margin-top: 20px;
-    margin-left:  5px;
-    width: 250px; 
-    border-radius: 5px; 
-    border: 1px solid #ccc; 
+.search-city-input {
+    display: flex;
+    width: 150px; 
+    border-radius: 2px; 
+    background: none;
+    border: none;
     font-size: 16px;
+    border-bottom: 1px solid rgb(218, 218, 218);
 }
 
 .search-button {
-    padding: 10px; 
-    margin-top: 20px;
-    width: 70px; 
-    border-radius: 5px; 
+    background: none;
+    border: none;
+    font-size: 14px;
+}
+.search-button:hover {
+    cursor: pointer;
+}
 
+.chart-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 20px;
+    padding: 20px;
 }

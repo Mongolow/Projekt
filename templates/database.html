@@ -1,7 +1,9 @@
 {% extends "index.html" %}
 {% block title %}Smarthome - Database{% endblock %}
     {% block content %}
-    <p style="color:rgb(218, 0, 207); margin: 20px ;">Baza danych</p>
+    <div class="db-header">
+        <p>Database</p>
+    </div>
     {% if measurements %}
     <div class="database-container">
         <table class="database-table">
@@ -26,7 +28,22 @@
             </tr>
             {% endfor %}
         </table>
-    {% else %}
+    {% if total_pages > 1 %}
+        <div class="pagination">
+            
+            {% if current_page > 1 %}
+                <a href="{{ url_for('database', page=current_page-1) }}" class="pagination-link">&laquo;</a>
+            {% endif %}
+
+            <p>Strona {{ current_page }} z {{ total_pages }}</p>
+
+            {% if current_page < total_pages %}
+                <a href="{{ url_for('database', page=current_page+1) }}" class="pagination-link">&raquo;</a>
+            {% endif %}
+            
+        </div>
+        {% endif %}
+        {% else %}
         <p>No measurements found</p>
     {% endif %}
     </div>

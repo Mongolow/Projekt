@@ -1,90 +1,55 @@
 {% extends "index.html" %}
 {% block title %}Smarthome - Weather{% endblock %}
     {% block content %}
-    
 
-    
-
-    <form method="POST">
+    <!-- <form method="POST">
         <input class="search-city-input" type="text" name="city" placeholder="Enter Your City:">
         <button class="search-button" type="submit">Search</button>
-    </form>
-
-    
+    </form> -->
 
     <div class="weather-container">
-
         <div class="string-house">House</div>
-
         <table class="weather-table">
-            
                 <tr class="table-header">
                     <th class="table-date">Date:</th>
-            
                     <th class="table-date-2">{{measurements[-1]['created_at']}}</th>
-
-                    </tr>
+                </tr>
                 <tr class="table-header-param">
                     <th class="table-parameters-t">Temperature (°C)</th>
                     <th class="table-parameters-h">Humidity (%)</th>
                     <th class="table-parameters-p">Pressure (Pa)</th>
-
-                    </tr>
+                </tr>
                 <tr class="table-header-param">
                     <th class="table-parameters-t">{{measurements[-1]["temp"]}}</th>
                     <th class="table-parameters-h">{{measurements[-1]["hum"]}}</th>
                     <th class="table-parameters-p">{{measurements[-1]["press"]}}</th>
-
-
                 </tr>
-
-
-                
         </table>
-
     </div>
 
-
-
     <div class="weather-container">
-
-        <div class="string-house">Outside ({{current_city}})</div>
-
+        <div class="string-outside">
+            Outside ({{current_city}})
+            <form method="POST" class="city-form">
+                <input class="search-city-input" type="text" name="city" placeholder="Enter Your City:">
+                <button class="search-button" type="submit">🔍</button>
+            </form>
+        </div>
         <table class="weather-table">
                 <tr class="table-header">
                     <th class="table-date">Date:</th>
                     <th class="table-date-2">{{measurements[-1]['created_at']}}</th>
-                    </tr>
-
+                </tr>
                 <tr class="table-header-param">
                     <th class="table-parameters-t">Temperature (°C)</th>
                     <th class="table-parameters-h">Humidity (%)</th>
                     <th class="table-parameters-p">Pressure (Pa)</th>
-
-                    </tr>
+                </tr>
                 <tr class="table-header-param">
                     <th class="table-parameters-t">{{outside["temperature_2m"]}}</th>
                     <th class="table-parameters-h">{{outside["relative_humidity_2m"]}}</th>
                     <th class="table-parameters-p">{{outside["surface_pressure"]}}</th>
-
-
-                </tr>
-
-
-
-
-
-
-            
+                </tr>            
         </table>
-
-            
-
-
-
-
     </div>
-
-    
-
     {% endblock %}
