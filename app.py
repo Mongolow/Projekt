@@ -3,7 +3,7 @@ import secrets
 import sqlite3
 import pygal 
 import requests
-
+import math
 
 app = Flask(__name__)
 
@@ -175,14 +175,27 @@ def weather():
     outside_data= outside_weather(city)
     return render_template('weather.html', measurements=measurements, outside=outside_data, current_city=city)
 
-
-
-
 @app.route('/database')
 def database():
+    page = request.args.get('page', 1, type=int)
+    per_page = 30
     db = get_db()
-    measurements = db.execute("SELECT * FROM measurements").fetchall()
-    return render_template('database.html', measurements=measurements)
+    offset = (page - 1) * per_page
+    cursor = db.cursor()
+
+    cursor.execute("""SELECT * FROM measurements ORDER BY created_at DESC LIMIT ? OFFSET ? """, (per_page, offset))
+    measurements = cursor.fetchall()
+    
+    cursor.execute("SELECT COUNT(*) FROM measurements")
+    total_records = cursor.fetchone()[0]
+    total_pages = math.ceil(total_records / per_page)
+    
+    return render_template(
+        'database.html', 
+        measurements=measurements, 
+        current_page=page, 
+        total_pages=total_pages
+    )
 
 # Usuwanie pomiaru z bazy danych
 @app.route("/delete_measurement/<int:measure_id>", methods=["POST"])
