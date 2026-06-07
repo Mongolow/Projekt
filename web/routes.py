@@ -3,6 +3,7 @@ from db import get_db
 from render_chart import render_chart
 from outside_weather import outside_weather
 import math
+from datetime import datetime
 
 web = Blueprint('web', __name__)
 
@@ -33,9 +34,11 @@ def weather():
             city = "Krakow" # Fallback do domyślnego miasta w przypadku błędu
     try:
         outside_data= outside_weather(city)
-        return render_template('weather.html', measurements=measurements, outside=outside_data, current_city=city)
+        current_time = datetime.now().strftime("%Y-%m-%d %H:%M:%S")
+        return render_template('weather.html', measurements=measurements, outside=outside_data, current_city=city, current_time=current_time)
     except Exception as e:
-        return render_template('weather.html', measurements=measurements, outside=None, current_city=city)
+        current_time = datetime.now().strftime("%Y-%m-%d %H:%M:%S")
+        return render_template('weather.html', measurements=measurements, outside=None, current_city=city, current_time=current_time)
 
 @web.route('/database')
 def database():
@@ -59,7 +62,6 @@ def database():
         total_pages=total_pages
     )
 
-# Usuwanie pomiaru z bazy danych
 @web.route("/delete_measurement/<int:measure_id>", methods=["POST"])
 def delete_measurement(measure_id):
     db = get_db()
