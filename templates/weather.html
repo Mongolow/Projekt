@@ -1,21 +1,27 @@
 {% extends "index.html" %}
 {% block title %}Smarthome - Weather{% endblock %}
     {% block content %}
-    <p style="color:rgb(218, 0, 207); margin: 20px ;">jedziesz kacper!</p>
+    
 
-    <div class="string-house">House</div>
+    
 
+    <form method="POST">
+        <input class="search-city-input" type="text" name="city" placeholder="Enter Your City:">
+        <button class="search-button" type="submit">Search</button>
+    </form>
+
+    
 
     <div class="weather-container">
 
-        
+        <div class="string-house">House</div>
 
         <table class="weather-table">
             
                 <tr class="table-header">
                     <th class="table-date">Date:</th>
             
-                    <th class="table-date">{{measurements[-1]['created_at']}}</th>
+                    <th class="table-date-2">{{measurements[-1]['created_at']}}</th>
 
                     </tr>
                 <tr class="table-header-param">
@@ -39,13 +45,15 @@
     </div>
 
 
-    <div class="string-house">Outside</div>
 
     <div class="weather-container">
+
+        <div class="string-house">Outside ({{current_city}})</div>
+
         <table class="weather-table">
                 <tr class="table-header">
                     <th class="table-date">Date:</th>
-                    <th class="table-date">{{measurements[-1]['created_at']}}</th>
+                    <th class="table-date-2">{{measurements[-1]['created_at']}}</th>
                     </tr>
 
                 <tr class="table-header-param">

@@ -223,12 +223,21 @@ footer {
 }
 
 .table-date {
-    width: 375px;
+    
     text-align: left;
 
 }
 
+.table-date-2 {
+    
+    text-align: center;
+
+}
+
+
+
 .weather-table {
+    width: 700px;
     table-layout: auto;
     border-spacing: 0;
     background: #ececec;
@@ -242,24 +251,24 @@ footer {
     align-items: center;
     height: fit-content;
     flex-direction: column;
-    gap: 30px;
+    gap: 15px;
 }
 
 .table-parameters-t {
     width: 140px;
-    text-align: left;
+    
     padding: 10px 5px;
 }
 .table-parameters-h {
     width: 140px;
-    text-align: left;
+    
     padding: 10px 5px;
 
 }
 
 .table-parameters-p {
     width: 140px;
-    text-align: left;
+    
     padding: 10px 5px;
 }
 
@@ -268,8 +277,8 @@ footer {
     font-weight: bold;
     font-size: 1.8em;
     color: #000000;
-    margin-bottom: 10px; 
-    padding-left: 180px;
+    margin-bottom: 2px; 
+    
     margin-top: 50px;
 
     
@@ -288,4 +297,24 @@ footer {
 
     
     text-align: left;
+}
+
+.search-city-input {
+
+    
+    padding: 10px; 
+    margin-top: 20px;
+    margin-left:  5px;
+    width: 250px; 
+    border-radius: 5px; 
+    border: 1px solid #ccc; 
+    font-size: 16px;
+}
+
+.search-button {
+    padding: 10px; 
+    margin-top: 20px;
+    width: 70px; 
+    border-radius: 5px; 
+
 }

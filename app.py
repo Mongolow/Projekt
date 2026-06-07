@@ -115,20 +115,41 @@ def api_delete_measurement(measure_id):
 
 # Pobieranie temperatury zewnętrznej wykorzystując zewnętrzne API ..................................
 
-def outside_weather():
-    latitude = 50.0614
-    longitude = 19.9366
+def outside_weather(city):
+    latitude,longitude = city_coordinates(city)
+    
+    if latitude is None or longitude is None:
+        return None
+    
     url = f"https://api.open-meteo.com/v1/forecast?latitude={latitude}&longitude={longitude}&current=temperature_2m,relative_humidity_2m,surface_pressure"
+    
 
     try:
-        resposne = requests.get(url)
-        resposne.raise_for_status()
-        data = resposne.json()
+        response = requests.get(url)
+        response.raise_for_status()
+        data = response.json()
 
         return data.get("current")
     except requests.exceptions.RequestException:
         print("Błąd serwera Open-Meteo.")
         return None
+
+# Zmienianie nazwy maista na współrz. geo. przez zewnętrzne API .....................................
+
+def city_coordinates(city_name):
+    url = f"https://geocoding-api.open-meteo.com/v1/search?name={city_name}&count=1&language=pl&format=json"
+
+    try:
+        response = requests.get(url)
+        if response.status_code == 200:
+            data = response.json()
+            if "results" in data and len(data["results"]) >0:
+                latitude = data["results"][0]["latitude"]
+                longitude = data["results"][0]["longitude"]
+                return latitude, longitude
+    except requests.exceptions.RequestException:
+        print("Błąd serwera Open-Meteo.")
+        return None, None
 
 
 # HTML .............................................................................................
@@ -137,13 +158,22 @@ def outside_weather():
 def index():
     return render_template('index.html')
 
-@app.route('/weather')
+@app.route('/weather',methods=["GET","POST"])
 def weather():
     db = get_db()
     measurements = db.execute("SELECT * FROM measurements").fetchall()
-    #APi zewnętrzne
-    outside_data= outside_weather()
-    return render_template('weather.html', measurements=measurements, outside=outside_data)
+    city= "Krakow" #Domyślne miasto
+
+    user_city= None
+
+    if request.method == "POST":
+        user_city = request.form.get("city")
+    
+    if user_city:
+        city = user_city
+    
+    outside_data= outside_weather(city)
+    return render_template('weather.html', measurements=measurements, outside=outside_data, current_city=city)
 
 
 
