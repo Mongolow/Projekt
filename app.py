@@ -167,13 +167,23 @@ def weather():
     user_city= None
 
     if request.method == "POST":
-        user_city = request.form.get("city")
-    
+        try:
+            user_city = request.form.get("city")
+        except Exception as e:
+            print(f"Błąd podczas pobierania danych z formularza: {e}")
+            user_city = None
+
     if user_city:
-        city = user_city
-    
-    outside_data= outside_weather(city)
-    return render_template('weather.html', measurements=measurements, outside=outside_data, current_city=city)
+        try:
+            city = user_city
+        except Exception as e:
+            print(f"Błąd podczas ustawiania miasta: {e}")
+            city = "Krakow" # Fallback do domyślnego miasta w przypadku błędu
+    try:
+        outside_data= outside_weather(city)
+        return render_template('weather.html', measurements=measurements, outside=outside_data, current_city=city)
+    except Exception as e:
+        return render_template('weather.html', measurements=measurements, outside=None, current_city=city)
 
 @app.route('/database')
 def database():
