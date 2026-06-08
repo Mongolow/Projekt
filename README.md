@@ -1,3 +1,11 @@
+<div align="center">
+
+# Smart-home station using esp32
+
+![Python](https://img.shields.io/badge/python-3.8%2B-blue) ![Flask](https://img.shields.io/badge/flask-2.0-green) ![Arduino](https://img.shields.io/badge/arduino-ESP32-orange) ![SQLite](https://img.shields.io/badge/sqlite-3.x-lightgrey)
+
+</div>
+
 **Project Overview**
 
 This project is a simple smart-home weather station dashboard focused on
