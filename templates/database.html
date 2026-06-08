@@ -35,7 +35,7 @@
                 <a href="{{ url_for('web.database', page=current_page-1) }}" class="pagination-link">&laquo;</a>
             {% endif %}
 
-            <p>Strona {{ current_page }} z {{ total_pages }}</p>
+            <p>Page {{ current_page }} of {{ total_pages }}</p>
 
             {% if current_page < total_pages %}
                 <a href="{{ url_for('web.database', page=current_page+1) }}" class="pagination-link">&raquo;</a>

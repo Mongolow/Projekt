@@ -17,5 +17,5 @@ def outside_weather(city):
 
         return data.get("current")
     except requests.exceptions.RequestException:
-        print("Błąd serwera Open-Meteo.")
+        print("Open-Meteo server error.")
         return None

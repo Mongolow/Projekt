@@ -12,5 +12,5 @@ def city_coordinates(city_name):
                 longitude = data["results"][0]["longitude"]
                 return latitude, longitude
     except requests.exceptions.RequestException:
-        print("Błąd serwera Open-Meteo.")
+        print("Open-Meteo server error.")
         return None, None

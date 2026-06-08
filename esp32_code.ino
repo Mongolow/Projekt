@@ -30,7 +30,7 @@ void sendData(float t, float h, float p) {
     http.begin(serverName);
     http.addHeader("Content-Type", "application/json");
 
-    // Tworzenie JSON-a
+    // Creating JSON
     StaticJsonDocument<200> doc;
     doc["temp"] = t;
     doc["hum"] = h;
@@ -39,7 +39,7 @@ void sendData(float t, float h, float p) {
     String jsonResponse;
     serializeJson(doc, jsonResponse);
 
-    // Wysłanie POST
+    // Sending POST
     int httpResponseCode = http.POST(jsonResponse);
     
     if (httpResponseCode > 0) {
@@ -62,7 +62,7 @@ void setup() {
 
   // WIFI 
   WiFi.begin(ssid, password);
-  Serial.print("Łączenie z WiFi");
+  Serial.print("Connecting to WiFi");
   
   while (WiFi.status() != WL_CONNECTED) {
     delay(500);

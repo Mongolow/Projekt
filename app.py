@@ -28,20 +28,20 @@ def close_db(exception):
     if db is not None:
         db.close()
 
-# Funkcja inicjująca baze danych
+# Function initializing the database
 def init_db():
     db = get_db()
     db.executescript(SCHEMA_SQL)
     db.commit()
 
 
-# Komenda inicjująca baze danych
+# Command initializing the database
 @app.cli.command("init-db")
 def init_db_command():
     init_db()
-    print("Zainicjowano bazę danych")
+    print("Database initialized")
 
-# Komenda dodająca do bazy danych przykładowe pomiary
+# Command adding sample measurements to the database
 @app.cli.command("seed-db")
 def seed_db_command():
     db = get_db()
@@ -49,11 +49,11 @@ def seed_db_command():
     if howManyMeasurements == 0:
         db.executemany("INSERT INTO measurements(temp, hum, press) VALUES (?, ?, ?)", [[36, 82, 38], [76, 64, 23], [23, 54, 24]])
         db.commit()
-        print("✔ dane przykladowe zostaly dodane do tabeli measurements")
+        print("✔ Sample data has been added to the measurements table")
     else:
-        print("tabela zawiera juz dane")
+        print("Table already contains data")
 
-# Komenda dodająca do bazy danych losowy jeden pomiar
+# Command adding a random measurement to the database
 @app.cli.command("add-measure")
 def add_measure_command():
     me_1 = round(secrets.SystemRandom().uniform(21, 36), 2)
@@ -62,9 +62,9 @@ def add_measure_command():
     db = get_db()
     db.execute("INSERT INTO measurements(temp, hum, press) VALUES (?, ?, ?)", [me_1, me_2, me_3])
     db.commit()
-    print("Dodano pomiar")
+    print("Measurement added")
 
 
 
 
-if __name__ == '__main__':    app.run(host='0.0.0.0', port=5001, debug=True) # uruchamia serwer Flask na porcie 5001, dostępny dla wszystkich interfejsów sieciowych.
+if __name__ == '__main__':    app.run(host='0.0.0.0', port=5001, debug=True) # Runs Flask server on port 5001, available for all network interfaces.

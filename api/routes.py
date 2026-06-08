@@ -4,12 +4,12 @@ from db import get_db
 api = Blueprint('api', __name__)
 
 
-@api.route('/api/weather/post', methods=['POST']) # to jest dodawanie danych
+@api.route('/api/weather/post', methods=['POST']) # this is adding data
 def api_post_wheather():
-    data = request.json #BEDZIE PRZYJMOWAĆ NOWE DATA W JSON
+    data = request.json # WILL RECEIVE NEW DATA IN JSON
 
     if not data or 'temp' not in data or 'hum' not in data:
-        return jsonify({"error": "Brak danych"}), 400
+        return jsonify({"error": "Missing data"}), 400
     new_entry = {
     "temp": data['temp'],
     "hum": data['hum'],
@@ -20,8 +20,8 @@ def api_post_wheather():
     db.execute("INSERT INTO measurements(temp, hum, press) VALUES (?, ?, ?)", [new_entry['temp'], new_entry['hum'], new_entry['press']])
     db.commit()
 
-    # Zapisz dane do bazy danych
-    return jsonify({"message": "dane zapisane"}), 201
+    # Save data to the database
+    return jsonify({"message": "data saved"}), 201
 
 @api.route("/api/weather/get", methods=["GET"])
 def api_measure_list():

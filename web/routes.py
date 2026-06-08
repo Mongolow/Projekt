@@ -15,23 +15,23 @@ def index():
 def weather():
     db = get_db()
     measurements = db.execute("SELECT * FROM measurements").fetchall()
-    city= "Krakow" #Domyślne miasto
+    city = "Krakow" # Default city
 
-    user_city= None
+    user_city = None
 
     if request.method == "POST":
         try:
             user_city = request.form.get("city")
         except Exception as e:
-            print(f"Błąd podczas pobierania danych z formularza: {e}")
+            print(f"Error getting form data: {e}")
             user_city = None
 
     if user_city:
         try:
             city = user_city
         except Exception as e:
-            print(f"Błąd podczas ustawiania miasta: {e}")
-            city = "Krakow" # Fallback do domyślnego miasta w przypadku błędu
+            print(f"Error setting city: {e}")
+            city = "Krakow" # Fallback to default city in case of error
     try:
         outside_data= outside_weather(city)
         current_time = datetime.now(timezone.utc).strftime("%Y-%m-%d %H:%M:%S")
