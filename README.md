@@ -2,7 +2,7 @@
 
 # Smart-home station using esp32
 
-![Python](https://img.shields.io/badge/python-3.8%2B-blue) ![Flask](https://img.shields.io/badge/flask-2.0-green) ![Arduino](https://img.shields.io/badge/arduino-ESP32-orange) ![SQLite](https://img.shields.io/badge/sqlite-3.x-lightgrey)
+![Python](https://img.shields.io/badge/python-3.8%2B-blue) ![Flask](https://img.shields.io/badge/flask-3.1.3-green) ![Arduino](https://img.shields.io/badge/arduino-ESP32-orange) ![SQLite](https://img.shields.io/badge/sqlite-3.x-lightgrey)
 
 </div>
 
