@@ -1,9 +1,10 @@
 from charset_normalizer import api
 from flask import Flask, g
-from db import get_db
+from db import get_db, DATABASE
 from api.routes import api
 from web.routes import web
 import secrets
+import os
 
 
 app = Flask(__name__)
@@ -21,18 +22,25 @@ created_at TEXT NOT NULL DEFAULT (datetime('now'))
 
 """
 
+# Function initializing the database
+def init_db():
+    db = get_db()
+    db.executescript(SCHEMA_SQL)
+    db.commit()
+
+
+# Automatically initialize database if it doesn't exist
+if not os.path.exists(DATABASE):
+    with app.app_context():
+        init_db()
+        print(f"Database '{DATABASE}' created successfully")
+
 
 @app.teardown_appcontext
 def close_db(exception):
     db = g.pop("db", None)
     if db is not None:
         db.close()
-
-# Function initializing the database
-def init_db():
-    db = get_db()
-    db.executescript(SCHEMA_SQL)
-    db.commit()
 
 
 # Command initializing the database
