@@ -149,6 +149,48 @@ Notes and tips:
   - `Connected WiFi!` and `IP ESP32: <ip>` on successful connection
   - `Sending Data...` when the sketch posts sensor readings
 
+**Sensor Hardware & Wiring**
+
+This project uses a BME280 environmental sensor (temperature, humidity, pressure).
+
+Power and ground:
+
+- Connect `VCC` on the BME280 to the ESP32 `3.3V` supply.
+- Connect `GND` on the BME280 to the ESP32 `GND`.
+
+I2C wiring (default in `esp32_code.ino`):
+
+- The sketch uses the I2C interface (`Wire.begin()`), and the code creates the
+  BME280 instance with `bme.begin(0x76)` (address `0x76`). If your module uses
+  `0x77`, change the address accordingly.
+- Typical ESP32 I2C pins: `SDA` -> GPIO21, `SCL` -> GPIO22 (use the pins for
+  your board or pass explicit pins to `Wire.begin(sda, scl)` if needed).
+
+SPI wiring (alternative):
+
+- The sketch contains commented examples for SPI initialization. If you want
+  to use SPI, wire the sensor SPI pins and update the sketch to one of the
+  SPI constructors:
+  - `Adafruit_BME280 bme(BME_CS);` // hardware SPI
+  - `Adafruit_BME280 bme(BME_CS, BME_MOSI, BME_MISO, BME_SCK);` // software SPI
+- The sketch defines SPI pins near the top: `BME_SCK` = 13, `BME_MISO` = 12,
+  `BME_MOSI` = 11, `BME_CS` = 10. Change them to match your wiring if needed.
+
+Libraries required on ESP32 side:
+
+- `Wire` (I2C)
+- `SPI` (if using SPI)
+- `Adafruit_Sensor`
+- `Adafruit_BME280`
+- `ArduinoJson` (used for POST payloads)
+
+Notes:
+
+- Use the `Adafruit_BME280` examples in the Arduino IDE to verify the sensor
+  wiring and address before integrating with this project.
+- Always power the BME280 with 3.3V when using ESP32 (not 5V unless the module
+  has a level shifter).
+
 **Development Tips**
 
 - If you need to reset the database during development, delete
