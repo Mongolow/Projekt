@@ -18,11 +18,11 @@ Adafruit_BME280 bme; // I2C
 
 unsigned long delayTime;
 
-const char* ssid = "Mongol"; 
-const char* password = "Zvside19";
+const char* ssid = "Mongol"; // WiFi credentials
+const char* password = "Zvside19"; // WiFi credentials
 
 // ENDPOINT
-const char* serverName = "http://192.168.1.67:5001/api/weather/post";
+const char* serverName = "http://192.168.1.67:5001/api/weather/post"; // http://IP_ADDRESS:PORT/api/ENDPOINT
 
 void sendData(float t, float h, float p) {
   if(WiFi.status() == WL_CONNECTED) {
@@ -88,5 +88,5 @@ void loop() {
   Serial.println("Sending Data...");
   sendData(temp, hum, press);
 
-  delay(10000);
+  delay(10000); // delay between posts
 }
